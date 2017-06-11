@@ -8,13 +8,13 @@ const filter = require('gulp-filter');
 const uglify = require('gulp-uglify');
 const csso = require('gulp-csso');
 const connect = require('gulp-connect'); // dev-server
-const rest = require('connect-rest'); // nodejs restful风格API提供
-const mocks = require('./mocks'); // 数据Mock
+const rest = require('./mocks'); // 数据Mock
 const del = require('del');
 /**
  * gulp:
  *  任务编排，打包(合并，(图片，代码，扰乱)压缩，rv)，build，dev-server，调用webpack
- * 下阶段优化相关：
+ *
+ *  下阶段优化相关：*******************
  *  const cached = require('gulp-cached'); 使用catch，优化gulp构建，增量build
  */
 
@@ -30,25 +30,27 @@ const del = require('del');
 // 基础config
 const src = {
   root: 'src',
-  assets: 'src/assets',
-  html: 'src/index.html',
+  assets: 'src/assets/**/*',
+  html: 'src/*.html',
 };
 
 // koa服务目录
 const publicDir = {
   root: 'public/',
+  assets: 'public/assets/',
 };
 
 // 放置production的打包文件(不进行ref, reversion, revreplace)
 const bin = {
-  root: 'root/',
+  root: 'bin/',
+  assets: 'bin/assets/',
 };
 
 // 开发时的临时打包目录
 const dist = {
   root: 'dist/',
-  assets: 'dist/assets',
-  html: 'dist/index.html',
+  assets: 'dist/assets/',
+  html: 'dist/',
 };
 
 // --------------------------清除之前build的结果(包含publicDir和dist)-------------------------- start
@@ -90,8 +92,13 @@ function copyHtml() {
 
 // -> bin build(prod)时
 function copyToBin() {
-  return gulp.src(dist.root)
+  return gulp.src(`${dist.root}**/*`)
     .pipe(gulp.dest(bin.root));
+}
+
+function copyToPublic() {
+  return gulp.src(`${bin.assets}**/*`)
+    .pipe(gulp.dest(publicDir.assets));
 }
 //
 // --------------------------文件copy--------------------------end
@@ -145,8 +152,7 @@ function webpackProduction(done) {
         NODE_ENV: 'production',
       },
     }),
-    new webpack.optimize.DedupePlugin(), // 去重
-  );
+    new webpack.optimize.DedupePlugin());
   // new webpack.optimize.UglifyJsPlugin(), 有gulp统一压缩，rev，revreplace
 
   webpack(config, (err, stats) => {
@@ -166,12 +172,9 @@ function connectServer(done) {
     port: 8080,
     livereload: true,
     middleware() {
-      return [rest.rester({
-        context: '/',
-      })];
+      return [rest.processRequest()];
     },
   });
-  mocks(rest);
   done();
 }
 // --------------------------自动刷新与数据mock--------------------------end
@@ -189,12 +192,12 @@ function watch() {
 // --------------------------代码监控--------------------------end
 
 // ----------添加文件&压缩(所有静态文件)hash,rev,revreplace，deploy时----------start
-function binToDebloy() {
+function binToDeploy() {
   const jsFilter = filter('bin/**/*.js', { restore: true });
   const cssFilter = filter('bin/**/*.css', { restore: true });
   const indexHtmlFilter = filter(['bin/**/*', '!**/index.html'], { restore: true });
 
-  gulp.src('bin/index.html')
+  return gulp.src('bin/index.html')
     .pipe(useref())      // Concatenate with gulp-useref
     .pipe(jsFilter)
     .pipe(uglify())             // Minify any javascript sources
@@ -213,12 +216,12 @@ function binToDebloy() {
 
 // --------------------------任务编排--------------------------start
 // dev
-gulp.task('default', gulp.series(
+const devTask = gulp.series(
   clean,
   gulp.parallel(copyAssets, copyHtml, webpackDevelopment),
   connectServer,
-  watch,
-));
+  watch);
+gulp.task('default', devTask);
 
 // production
 gulp.task('build', gulp.series(
@@ -226,11 +229,9 @@ gulp.task('build', gulp.series(
   gulp.parallel(copyAssets, copyHtml, webpackProduction),
   cleanBuild,
   copyToBin, // copy至bin(tmp构建目录)： 下一步准备发布至发布目录
-  binToDebloy,
-  binToDebloy,
+  gulp.parallel(copyToPublic, binToDeploy),
   (done) => {
     console.log('build success');
     done();
-  },
-));
+  }));
 // --------------------------任务编排--------------------------end

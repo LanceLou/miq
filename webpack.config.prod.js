@@ -29,10 +29,10 @@ const config = {
       'react-dom',
       'react-router',
     ],
-    index: `${__dirname  }/src/js/index.js`,
+    index: `${__dirname}/src/js/index.js`,
   },
   output: {
-    path: `${__dirname  }/bin/js/`, // temp打包目录：bin
+    path: `${__dirname}/dist/js/`, // temp打包目录：bin
     filename: '[name].js',
   },
   module: {
