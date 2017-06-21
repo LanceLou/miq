@@ -8,7 +8,8 @@ const filter = require('gulp-filter');
 const uglify = require('gulp-uglify');
 const csso = require('gulp-csso');
 const connect = require('gulp-connect'); // dev-server
-const rest = require('./mocks'); // 数据Mock
+const openurl = require('openurl');
+const rest = require('./test/mocks'); // 数据Mock
 const del = require('del');
 /**
  * gulp:
@@ -51,6 +52,11 @@ const dist = {
   root: 'dist/',
   assets: 'dist/assets/',
   html: 'dist/',
+};
+
+const config = {
+  isOpenUrl: true, // 是否自动打开
+  openUrl: 'http://localhost:8080',
 };
 
 // --------------------------清除之前build的结果(包含publicDir和dist)-------------------------- start
@@ -145,17 +151,17 @@ function webpackDevelopment(done) {
 
 // 生产环境下webpack任务 -------production
 function webpackProduction(done) {
-  const config = Object.create(webpackConfig);
-  config.plugins = config.plugins.concat(
+  const wconfig = Object.create(webpackConfig);
+  wconfig.plugins = wconfig.plugins.concat(
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'production',
+        NODE_ENV: '"production"',
       },
-    }),
-    new webpack.optimize.DedupePlugin());
+    }));
+  // new webpack.optimize.DedupePlugin()); Migrating: 不在需要啦
   // new webpack.optimize.UglifyJsPlugin(), 有gulp统一压缩，rev，revreplace
 
-  webpack(config, (err, stats) => {
+  webpack(wconfig, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
     gutil.log('[webpack:production]', stats.toString({
       colors: true,
@@ -220,6 +226,11 @@ const devTask = gulp.series(
   clean,
   gulp.parallel(copyAssets, copyHtml, webpackDevelopment),
   connectServer,
+  () => {
+    if (config.isOpenUrl) {
+      openurl.open(config.openUrl);
+    }
+  },
   watch);
 gulp.task('default', devTask);
 
