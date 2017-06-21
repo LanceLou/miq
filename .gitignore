@@ -60,7 +60,7 @@ typings/
 # custom config
 config.js
 
-# dist, bin, public
+# dist bin public
 dist
 bin
 public
