@@ -58,7 +58,7 @@ typings/
 .env
 
 # custom config
-.config
+config.js
 
 # dist, bin, public
 dist/
