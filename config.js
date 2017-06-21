@@ -4,6 +4,6 @@
  */
 const config = {
   dbUser: 'root',
-  dbPassword: '**********',
+  dbPassword: '123456',
 };
 export default config;
