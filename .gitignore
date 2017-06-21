@@ -61,6 +61,6 @@ typings/
 config.js
 
 # dist, bin, public
-dist/
-bin/
-public/
+dist
+bin
+public
