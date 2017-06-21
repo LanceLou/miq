@@ -1,12 +1,36 @@
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
 const Koa = require('koa');
+const { mysqlConnectionInitialize } = require('./models/connectionPool');
 
 const app = new Koa();
 module.exports = app;
 
-// 日志记录
+// 日志记录，命令行屌丝版
 app.use(logger());
+// 入口错误处理，包含throw的异常以及未捕获的异常
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (e) {
+    ctx.status = e.status || 500;
+    switch (ctx.status) {
+      case 404: { // Not Found
+        const context404 = { msg: e.message == 'Not Found' ? null : e.message };
+        await ctx.render('404-not-found', context404);
+        break;
+      }
+      default:
+      case 500: { // Internal Server Error
+        console.error(ctx.status, e.message);
+        const context500 = app.env === 'production' ? {} : { e };
+        await ctx.render('500-internal-server-error', context500);
+        ctx.app.emit('error', e, ctx); // github.com/koajs/koa/wiki/Error-Handling
+        break;
+      }
+    }
+  }
+});
 // 此处可放置模板渲染服务或者静态文件请求middleware
 app.use(require('koa-static')(`${__dirname}/public`));
 // 请求体解析
