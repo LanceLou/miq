@@ -123,7 +123,7 @@ async function thirdPartLoginCb(ctx, bodyData) {
       // google auth
       const userInfo = await verifyIdGoogleTokenPromise(bodyData.idtoken);
       console.log(userInfo);
-      if (userInfo.length) {
+      if (userInfo && userInfo.aud) {
         // DB查询新用户或存储
         let user = await userModel.getBy('thirdpartUniq', userInfo.email);
         if (user) {
