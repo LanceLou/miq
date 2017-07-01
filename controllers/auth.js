@@ -125,13 +125,13 @@ async function thirdPartLoginCb(ctx, bodyData) {
       console.log(userInfo);
       if (userInfo && userInfo.aud) {
         // DB查询新用户或存储
-        let user = await userModel.getBy('thirdpartUniq', userInfo.email);
+        const user = await userModel.getBy('thirdpartUniq', userInfo.email);
         if (user.length) {
           ctx.session.userId = user[0].id;
         } else {
-          user = await createUser(userInfo, 0);
-          console.log(user.id);
-          ctx.session.userId = user.id;
+          user.userId = await createUser(userInfo, 0);
+          console.log(user);
+          ctx.session.userId = user.userId;
         }
         // 重定向至主页
         ctx.throw(302, 'Google auth success, redirect to index');
