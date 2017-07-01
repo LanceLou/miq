@@ -1,6 +1,12 @@
 const Lib = require('../lib/lib.js');
 const ModelError = require('./modelerror.js');
+const mysql = require('mysql2');
 
+/**
+ * 对于github auth： 我们通过url(即个人url，eg：https://github.com/LanceLou)来进行唯一性校验
+ * 对于Google auth： 使用期email进行唯一性校验，当然，二者都要带上对应的第三方认证类型
+ * @class User
+ */
 class User {
 
   /**
@@ -12,7 +18,7 @@ class User {
    * @memberof User
    */
   static async get(id) {
-    const [users] = await global.db.query('Select * From User Where UserId = ?', [id]);
+    const [users] = await global.db.query('Select * From User Where id = ?', [id]);
     const user = users[0];
     return user;
   }
@@ -21,16 +27,14 @@ class User {
    * 根据用户的某些特征获取用户
    * @static
    * @param {string} field 对应的列名
-   * @param {string!number} 列名所对应的值
+   * @param {string!number} value 列名所对应的值
    * @returns 查询到的User
    * @memberof User
    */
   static async getBy(field, value) {
     try {
-      const sql = `Select * From User Where ${field} = :${field}`;
-
-      const [users] = await global.db.query(sql, { [field]: value });
-
+      const sql = 'Select * From User Where ?? = ?';
+      const [users] = await global.db.query(sql, [field, value]);
       return users;
     } catch (e) {
       switch (e.code) {
@@ -71,7 +75,7 @@ class User {
      */
   static async update(id, values) {
     try {
-      await global.db.query('Update User Set ? Where UserId = ?', [values, id]);
+      await global.db.query('Update User Set ? Where id = ?', [values, id]);
     } catch (e) {
       switch (e.code) { // just use default MySQL messages for now
         case 'ER_BAD_NULL_ERROR':

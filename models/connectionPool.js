@@ -29,7 +29,13 @@ async function mysqlConnectionInitialize(ctx, next) {
   await next();
   ctx.state.db.release();
 }
+async function mysqlConnectionInitializeForTest() {
+  global.db = await connectionPool.getConnection();
+  global.db.connection.config.namedPlaceholders = true;
+  await global.db.query('SET SESSION sql_mode = "TRADITIONAL"');
+}
 // 首先，为什么在中间件中初始化，话说这样每次链接到来都会建立一个连接挂到全局
 module.exports = {
   mysqlConnectionInitialize,
+  mysqlConnectionInitializeForTest,
 };
