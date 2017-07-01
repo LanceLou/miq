@@ -9,7 +9,7 @@ const uglify = require('gulp-uglify');
 const csso = require('gulp-csso');
 const connect = require('gulp-connect'); // dev-server
 const openurl = require('openurl');
-const rest = require('./test/mocks'); // 数据Mock
+const rest = require('./test/frontEnd/mocks'); // 数据Mock
 const del = require('del');
 /**
  * gulp:
