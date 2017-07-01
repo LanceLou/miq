@@ -61,10 +61,11 @@
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://miq.lancelou.com/oauth2callback');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function(data) {
-          console.log('Signed in as: ' + xhr.responseText);
-          var res = JSON.parse(xhr.responseText);
-          if (res.statue === 302) {
+        xhr.onload = function() {
+          // console.log('Signed in as: ' + xhr.responseText);
+          // var res = JSON.parse(xhr.responseText);
+          console.log(xhr);
+          if (xhr.status === 200) {
             window.location = 'http://miq.lancelou.com/';
           }
         };
