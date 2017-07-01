@@ -126,8 +126,8 @@ async function thirdPartLoginCb(ctx, bodyData) {
       if (userInfo && userInfo.aud) {
         // DB查询新用户或存储
         let user = await userModel.getBy('thirdpartUniq', userInfo.email);
-        if (user) {
-          ctx.session.userId = user.id;
+        if (user.length) {
+          ctx.session.userId = user[0].id;
         } else {
           user = await createUser(userInfo, 0);
           console.log(user.id);
