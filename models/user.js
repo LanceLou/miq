@@ -7,7 +7,7 @@ const ModelError = require('./modelerror.js');
  * 对于Google auth： 使用期email进行唯一性校验，当然，二者都要带上对应的第三方认证类型
  * @class user
  */
-class user {
+class User {
 
   /**
    * 根据用户id获取数据库用户数据
@@ -92,4 +92,4 @@ class user {
     }
   }
 }
-module.exports = user;
+module.exports = User;

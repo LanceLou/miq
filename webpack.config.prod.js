@@ -35,6 +35,14 @@ const config = {
     path: `${__dirname}/dist/js/`, // temp打包目录：bin
     filename: '[name].js',
   },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      components: path.resolve(__dirname, 'src/js/components/'),
+      actions: path.resolve(__dirname, 'src/js/actions/'),
+      api: path.resolve(__dirname, 'src/js/api/'),
+    },
+  },
   module: {
     loaders: [
       {
@@ -48,7 +56,7 @@ const config = {
         },
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: { presets: ['es2015', 'stage-0', 'react'] },
@@ -56,7 +64,7 @@ const config = {
       {
         test: /\.scss$/,
         exclude: path.resolve(__dirname, 'src/styles'),
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]!sass?sourceMap=true',
+        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]!sass-loader?sourceMap=true',
       }, {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),

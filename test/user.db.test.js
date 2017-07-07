@@ -18,15 +18,15 @@ const testAddUser = () => {
 const testFindUserById = () => {
   it('get user by id', async () => {
     await mysqlConnectionInitializeForTest();
-    const result = await userModel.get(4);
-    result.should.be.instanceof(Object).and.have.property('name', 'lance');
+    const result = await userModel.get(11);
+    result.should.be.instanceof(Object).and.have.property('name', 'LouCong');
   });
 };
 
 const testGetUserByField = () => {
   it('get users by described fields', async () => {
     await mysqlConnectionInitializeForTest();
-    const result = await userModel.getBy('email', '12353261@gmail.com');
+    const result = await userModel.getBy('email', 'loulincong@gmail.com');
     result.should.be.instanceof(Array).and.have.lengthOf(1);
   });
 };
@@ -42,4 +42,4 @@ const initTest = () => {
   testGetUserByField();
   testUpdateUser();
 };
-initTest();
+// initTest();

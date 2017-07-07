@@ -1,19 +1,19 @@
 require('should');
-const circleModel = require('../models/circle');
+const circleModel = require('../models/label');
 const { mysqlConnectionInitializeForTest } = require('../models/connectionPool');
 
 const it = global.it;
 
 // 测试相关参数
-const modelName = 'Circle';
+const modelName = 'Label';
 const Model = circleModel;
 const getByParam = {
-  fieldNames: ['name', 'creator'],
-  values: ['lance circle', 11],
+  fieldNames: ['name', 'circle'],
+  values: ['基础学习', 7],
 };
-const findById = 7;
+const findById = 1;
 const updateParam = {
-  id: 7,
+  id: 1,
   kv: {
     status: 2,
   },
@@ -23,12 +23,8 @@ const testAdd = () => {
   it(`insert ${modelName}`, async () => {
     await mysqlConnectionInitializeForTest();
     const result = await Model.insert({
-      name: 'lance circle',
-      intro: 'bla bla',
-      creator: 11,
-      logoUrl: 'https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400',
-      status: 1,
-      createdAt: new Date(),
+      name: '基础学习',
+      circle: 7,
     });
     result.should.be.instanceof(Number);
   });
@@ -38,7 +34,7 @@ const testFindById = () => {
   it(`get ${modelName} by id`, async () => {
     await mysqlConnectionInitializeForTest();
     const result = await Model.get(findById);
-    result.should.be.instanceof(Object).and.have.property('name', 'lance circle');
+    result.should.be.instanceof(Object).and.have.property('name', '基础学习');
   });
 };
 
@@ -61,5 +57,5 @@ const initTest = () => {
   testFindByField();
   testUpdate();
 };
-// initTest();
+initTest();
 

@@ -15,8 +15,9 @@ const del = require('del');
  * gulp:
  *  任务编排，打包(合并，(图片，代码，扰乱)压缩，rv)，build，dev-server，调用webpack
  *
- *  下阶段优化相关：*******************
- *  const cached = require('gulp-cached'); 使用catch，优化gulp构建，增量build
+ *  TODO: 下阶段优化相关：*******************
+ *  1. const cached = require('gulp-cached'); 使用catch & gulp-remember，优化gulp构建，增量build
+ *  2. 部署自动化发布，deploy to git
  */
 
 /**
@@ -129,7 +130,7 @@ const webpackConfig = require('./webpack.config.prod.js');
 
 const devConfig = Object.create(webpackConfig);
 
-devConfig.devtool = 'sourcemap';
+devConfig.devtool = 'eval';
 devConfig.plugins.push(new webpack.LoaderOptionsPlugin({
   debug: true,
 }));
@@ -187,15 +188,26 @@ function connectServer(done) {
 
 // --------------------------代码监控--------------------------start
 function watch() {
+  console.log('start watch');
   gulp.watch(src.html, copyHtml);
   gulp.watch('src/**/*.js', webpackDevelopment);
-  gulp.watch('src/**/*.less', webpackDevelopment);
+  gulp.watch('src/**/*.jsx', webpackDevelopment);
+  gulp.watch('src/**/*.scss', webpackDevelopment);
   gulp.watch('dist/**/*').on('change', () => {
     gulp.src('dist/')
       .pipe(connect.reload());
   });
 }
 // --------------------------代码监控--------------------------end
+
+// --------------------------浏览器链接打开--------------------------start
+function openUrl(done) {
+  if (config.isOpenUrl) {
+    openurl.open(config.openUrl);
+  }
+  done();
+}
+// --------------------------浏览器链接打开--------------------------end
 
 // ----------添加文件&压缩(所有静态文件)hash,rev,revreplace，deploy时----------start
 function binToDeploy() {
@@ -226,11 +238,7 @@ const devTask = gulp.series(
   clean,
   gulp.parallel(copyAssets, copyHtml, webpackDevelopment),
   connectServer,
-  () => {
-    if (config.isOpenUrl) {
-      openurl.open(config.openUrl);
-    }
-  },
+  openUrl,
   watch);
 gulp.task('default', devTask);
 

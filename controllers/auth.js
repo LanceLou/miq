@@ -7,6 +7,9 @@
  *  Github: oauth2callbackgh
  *  Google: oauth2callback
  *
+ * 解决第三方登录用户唯一性字段问题(如何当第三方登录成功时如何判断用户是否存库)
+ * Google: 这个使用邮箱存储没毛病
+ * Github: 存储id
  *
  * 后期优化：引入JWT / koa-password?
  * -------------------------------------------------------------
@@ -42,8 +45,6 @@ const verifyIdGoogleTokenPromise = token => new Promise((resolve) => {
     token,
     config.GGCLIENT_ID,
     (e, login) => {
-      console.log(e);
-      console.log(login);
       const payload = login.getPayload();
       if (!payload || !payload.email) {
         resolve(null);
@@ -96,7 +97,6 @@ async function createUser(userInfo, type) {
   return user;
 }
 async function thirdPartLoginCb(ctx, bodyData) {
-  console.log(ctx.path);
   try {
     if (ctx.path.indexOf('/oauth2callbackgh') === 0) {
       console.log('--------------github auth--------------');
@@ -105,7 +105,7 @@ async function thirdPartLoginCb(ctx, bodyData) {
       const basicInfo = await getUserGithubInfo(token.access_token);
       if (basicInfo) {
         // DB查询用户或存储
-        const user = await userModel.getBy('thirdpartUniq', basicInfo.html_url);
+        const user = await userModel.getBy('thirdpartUniq', basicInfo.id);
         if (user.length) {
           ctx.session.userId = user[0].id;
         } else {
@@ -122,7 +122,6 @@ async function thirdPartLoginCb(ctx, bodyData) {
       console.log('--------------google auth--------------');
       // google auth
       const userInfo = await verifyIdGoogleTokenPromise(bodyData.idtoken);
-      console.log(userInfo);
       if (userInfo && userInfo.aud) {
         // DB查询新用户或存储
         const user = await userModel.getBy('thirdpartUniq', userInfo.email);
@@ -130,7 +129,6 @@ async function thirdPartLoginCb(ctx, bodyData) {
           ctx.session.userId = user[0].id;
         } else {
           user.userId = await createUser(userInfo, 0);
-          console.log(user);
           ctx.session.userId = user.userId;
         }
         // 重定向至主页
@@ -158,16 +156,13 @@ async function userStatusCheck(userId) {
 }
 async function auth(ctx, next) {
   const session = ctx.session;
-  console.log(session);
   if (session.userId) {
     // 用户已登录, 检查用户是否被锁定
-
-    await next();
-    // if (userStatusCheck()) {
-    //   await next();
-    // } else {
-    //   ctx.throw(401, 'user locked');
-    // }
+    if (userStatusCheck(session.userId)) {
+      await next();
+    } else {
+      ctx.throw(401, 'user locked');
+    }
   } else if (ctx.path.indexOf('/oauth2callback') === 0) {
     const bodyData = await getBody(ctx);
     await thirdPartLoginCb(ctx, bodyData);
