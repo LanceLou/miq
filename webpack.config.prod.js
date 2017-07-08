@@ -36,17 +36,18 @@ const config = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.json', '.jsx', '.scss', '.css'],
     alias: {
-      components: path.resolve(__dirname, 'src/js/components/'),
-      actions: path.resolve(__dirname, 'src/js/actions/'),
-      api: path.resolve(__dirname, 'src/js/api/'),
+      Components: path.resolve(__dirname, 'src/js/components/'),
+      Actions: path.resolve(__dirname, 'src/js/actions/'),
+      Api: path.resolve(__dirname, 'src/js/api/'),
+      Styles: path.resolve(__dirname, 'src/styles/'),
     },
   },
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.(jsx|js)$/,
         enforce: 'pre',
         loader: 'eslint-loader',
         exclude: /node_modules/,

@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import configureStore from './store';
 import Root from './components/root';
 
-console.log(Root);
 /**
  * 入口文件，store配置，dom插入
  */

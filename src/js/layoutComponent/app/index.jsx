@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'Styles/app.scss';
 import Header from '../header';
 import Nav from '../nav';
-import DisplayContent from '../displayContent';
 
 import styles from './index.scss';
 
@@ -13,11 +13,10 @@ const App = props => (<div>
   <Header />
   <div className={styles.appContainer}>
     <Nav />
-    <DisplayContent>{props.children}</DisplayContent>
+    <div>{props.children}</div>
   </div>
 </div>);
 App.propTypes = {
-  children: PropTypes.shape.isRequired,
+  children: PropTypes.element.isRequired,
 };
-
 export default App;
