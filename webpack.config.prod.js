@@ -42,6 +42,7 @@ const config = {
       Actions: path.resolve(__dirname, 'src/js/actions/'),
       Api: path.resolve(__dirname, 'src/js/api/'),
       Styles: path.resolve(__dirname, 'src/styles/'),
+      reducers: path.resolve(__dirname, 'src/js/reducers/'),
     },
   },
   module: {
@@ -65,7 +66,7 @@ const config = {
       {
         test: /\.scss$/,
         exclude: path.resolve(__dirname, 'src/styles'),
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]!sass-loader?sourceMap=true',
+        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]--[hash:base64:5]!sass-loader?sourceMap=true',
       }, {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),

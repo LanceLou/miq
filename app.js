@@ -72,12 +72,10 @@ app.use(require('koa-static')(`${__dirname}/views`));
 app.use(session(CONFIG, app));
 // 数据库实体初始化，挂载到global上
 app.use(mysqlConnectionInitialize);
-// 用户认证， auth相关，待Google auth接入
+// 用户认证， auth相关，Google auth接入
 app.use(auth);
 
 // ->> 认证完毕，正式进入index，服务
-// 此处可放置模板渲染服务或者静态文件请求middleware
-app.use(require('koa-static')(`${__dirname}/public`));
 // csrf, session, cookie
 app.use(new CSRF());
 // 加csrf token
@@ -87,6 +85,8 @@ app.use(async (ctx, next) => {
   }
   await next();
 });
+// 此处可放置模板渲染服务或者静态文件请求middleware
+app.use(require('koa-static')(`${__dirname}/public`));
 // 请求体解析
 app.use(koaBody);
 // 路由设置开启
