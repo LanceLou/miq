@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 /**
  * webpack: 负责css处理，scss，css moudle
@@ -42,7 +43,9 @@ const config = {
       Actions: path.resolve(__dirname, 'src/js/actions/'),
       Api: path.resolve(__dirname, 'src/js/api/'),
       Styles: path.resolve(__dirname, 'src/styles/'),
-      reducers: path.resolve(__dirname, 'src/js/reducers/'),
+      Images: path.resolve(__dirname, 'src/assets/images/'),
+      Util: path.resolve(__dirname, 'src/js/util/'),
+      Reducers: path.resolve(__dirname, 'src/js/reducers/'),
     },
   },
   module: {
@@ -61,21 +64,25 @@ const config = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: { presets: ['es2015', 'stage-0', 'react'] },
+        query: { presets: ['es2015', 'stage-0', 'stage-1', 'react'] },
       },
       {
         test: /\.scss$/,
         exclude: path.resolve(__dirname, 'src/styles'),
-        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]--[hash:base64:5]!sass-loader?sourceMap=true',
+        loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]--[hash:base64:5]!postcss-loader?sourceMap=true!sass-loader?sourceMap=true',
       }, {
         test: /\.scss$/,
         include: path.resolve(__dirname, 'src/styles'),
-        loader: 'style-loader!css-loader!sass-loader?sourceMap=true',
+        loader: 'style-loader!css-loader!postcss-loader?sourceMap=true!sass-loader?sourceMap=true',
+      }, {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=8192',
       },
     ],
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+    autoprefixer,
   ],
 };
 

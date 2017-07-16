@@ -1,4 +1,4 @@
-import * as userApi from 'api/user.api';
+import * as userApi from 'Api/user.api';
 /**
  * 全局性action creator
  * 如：Toast提示，全局User基础信息，等

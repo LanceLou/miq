@@ -1,11 +1,11 @@
 /**
  * Topic 评论相关API
  */
-import Fetch from './common';
+import Fetch from './commons';
 
 const baseUrl = {
-  topic: '/xhr/comment',
-  like: '/xhr/coment/like',
+  topic: '/xhr/comment.json',
+  like: '/xhr/coment/like.json',
 };
 
 /**

@@ -1,6 +1,6 @@
-import Fetch from './common';
+import Fetch from './commons';
 
-const baseUrl = '/xhr/search';
+const baseUrl = '/xhr/search.json';
 
 /**
  * 关键词搜索接口(圈子，文件，主题)

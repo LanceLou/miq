@@ -1,12 +1,12 @@
 /**
  * 主题相关api
  */
-import Fetch from './common';
+import Fetch from './commons';
 
 const baseUrl = {
-  topic: '/xhr/topic',
-  topicFile: '/xhr/topicFile',
-  topicCollect: '/xhr/collect',
+  topic: '/xhr/topic.json',
+  topicFile: '/xhr/topicFile.json',
+  topicCollect: '/xhr/collect.json',
 };
 
 

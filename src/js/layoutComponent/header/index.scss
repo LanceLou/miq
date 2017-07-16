@@ -9,6 +9,14 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.headerComponents {
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  padding-left: 55%;
+  line-height: 50px;
+}
+
 .logo {
   line-height: 50px;
   margin-left: 200px;

@@ -1,5 +1,5 @@
-import * as searchApi from 'api/search.api';
-import { getSearchIsFetching } from 'reducers';
+import * as searchApi from 'Api/search.api';
+import { getSearchIsFetching } from 'Reducers';
 
 /**
  * search 相关的action creator

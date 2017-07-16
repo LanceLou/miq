@@ -9,7 +9,7 @@ const uglify = require('gulp-uglify');
 const csso = require('gulp-csso');
 const connect = require('gulp-connect'); // dev-server
 const openurl = require('openurl');
-const rest = require('./test/frontEnd/mocks'); // 数据Mock
+const mockMiddleware = require('./test/frontEnd/mocks'); // 数据Mock
 const del = require('del');
 /**
  * gulp:
@@ -178,9 +178,7 @@ function connectServer(done) {
     root: dist.root, // dist 测试/开发时使用dist目录
     port: 8080,
     livereload: true,
-    middleware() {
-      return [rest.processRequest()];
-    },
+    middleware: () => [mockMiddleware],
   });
   done();
 }

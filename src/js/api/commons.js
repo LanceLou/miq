@@ -1,10 +1,9 @@
 import request from 'superagent';
-import { ToastMessage } from 'action/global';
 
 import Tool from '../util/tool';
 
 
-const mainUrl = 'http://miq.lancelou.com';
+const mainUrl = process.env.NODE_ENV === 'product' ? 'http://miq.lancelou.com' : 'http://localhost:8080';
 
 const addCsrfToken = (params) => {
   const tokenKV = { _csrf: Tool.getCookie('csrfToken') };
@@ -20,7 +19,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -37,7 +35,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -55,7 +52,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -73,7 +69,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -90,7 +85,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -107,7 +101,6 @@ const Fetch = {
         // 部署全局统一提示
         if (err) {
           console.log(err);
-          ToastMessage(err.message, res);
           reject(err);
         } else {
           resolve(res);
@@ -115,4 +108,5 @@ const Fetch = {
       });
   }),
 };
+
 export default Fetch;

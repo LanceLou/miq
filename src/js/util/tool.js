@@ -17,6 +17,20 @@ const Tools = {
     }
     return value;
   },
+
+  getDataFromLocalStorage(key) {
+    if (!window.localStorage) {
+      return null;
+    }
+    const fromStorage = window.localStorage.getItem(key);
+    return JSON.parse(fromStorage);
+  },
+  setDataTOLocalStorage(key, value) {
+    if (!window.localStorage) {
+      return null;
+    }
+    return window.localStorage.setItem(key, JSON.stringify(value));
+  },
 };
 
 export default Tools;

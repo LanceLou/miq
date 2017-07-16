@@ -1,0 +1,113 @@
+.searchContainer {
+  position: relative;
+  &>* {
+    display: inline-block;
+  }
+  input[type='text'] {
+    width: 320px;
+    height: 30px;
+    color: #555;
+    font-size: 0.4rem;
+    border: 1px solid #ccc;
+    border-right: 0;
+    outline: none;
+    padding-left: 0.4rem;
+    box-sizing: border-box;
+    vertical-align: middle;
+    background-color: #F5F8FA;
+    &::-webkit-input-placeholder {
+      color: #ccc;
+    }
+    &:-ms-input-placeholder {
+      color: #ccc;
+    }
+    &::-moz-placeholder {
+      color: #ccc;
+    }
+    &:-moz-placeholder {
+      color: #ccc;
+    }
+  }
+}
+
+.remenders {
+  width: 100%;
+  color: #aaa;
+  position: absolute;
+  top: 43px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
+  li {
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 36px;
+    list-style: none;
+    padding-left: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  li:hover {
+    background-color: #F5F8FA;
+  }
+}
+
+.remenderList_item {
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 36px;
+  padding: 0;
+  padding-right: 20px;
+  display: block;
+  text-align: left;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.search_btn {
+  width: 50px;
+  height: 30px;
+  border: 1px solid #ccc;
+  outline: none;
+  background-image: url(./images/search.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  box-sizing: border-box;
+  border-radius: 0 3px 3px 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.search_btn:hover {
+  background-color: #eee;
+}
+
+.clock {
+  height: 36px;
+  width: 30px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: bottom;
+  background-image: url(./images/clock.png);
+}
+
+.close {
+  height: 36px;
+  width: 30px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: bottom;
+  background-image: url(./images/close.png);
+  position: absolute;
+  right: 5px;
+  outline: none;
+}

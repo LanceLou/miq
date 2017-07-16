@@ -1,9 +1,10 @@
-import Fetch from './common';
+import Fetch from './commons';
 
 const baseUrl = {
-  userDetail: '/xhr/user/detail',
-  userMessage: '/xhr/user/message',
+  userDetail: '/xhr/user/detail.json',
+  userMessage: '/xhr/user/message.json',
 };
+
 
 /**
  * 获取用户基础信息

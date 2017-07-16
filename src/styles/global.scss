@@ -1,0 +1,18 @@
+.text-oneline_omit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.box-background_center_norepeat {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.element-appearance_none {
+  appearance: none;
+}
+button.btn {
+  background-color: transparent;
+  appearance: none;
+  border: 0;
+  outline: 0;
+}
