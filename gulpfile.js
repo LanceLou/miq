@@ -130,7 +130,7 @@ const webpackConfig = require('./webpack.config.prod.js');
 
 const devConfig = Object.create(webpackConfig);
 
-devConfig.devtool = 'eval';
+devConfig.devtool = 'source-map';
 devConfig.plugins.push(new webpack.LoaderOptionsPlugin({
   debug: true,
 }));

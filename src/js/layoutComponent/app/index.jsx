@@ -3,13 +3,13 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import eventemit from 'Util/event';
 import 'Styles/app.scss';
 import Header from '../header';
 import Nav from '../nav';
-
 import styles from './index.scss';
 
-const App = props => (<div>
+const App = props => (<div onClick={() => { eventemit.emit('documentclick'); }} role="presentation">
   <Header />
   <div className={styles.appContainer}>
     <Nav />

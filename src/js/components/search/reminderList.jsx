@@ -19,13 +19,13 @@ const RemenderList = (props) => {
         <li key={reminderItem.id}>
           <button
             className={cx({ btn: true, remenderList_item: true, 'text-oneline_omit': true })}
-            onClick={() => props.selctReminderItem(reminderItem.text)}
+            onClick={(ev) => { ev.stopPropagation(); props.selctReminderItem(reminderItem.text); }}
           >
             <span className={Style.clock} />
             { reminderItem.text }
             <span
               className={Style.close}
-              onClick={() => props.removeReminderItem(reminderItem.id)}
+              onClick={(ev) => { ev.stopPropagation(); props.removeReminderItem(reminderItem.id); }}
               role="button"
               tabIndex={-5}
             />

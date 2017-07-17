@@ -23,6 +23,7 @@
   "homepage": "https://github.com/LanceLou/miq#readme",
   "dependencies": {
     "classnames": "^2.2.5",
+    "eventemitter2": "^4.1.2",
     "google-auth-library": "^0.10.0",
     "koa": "^2.2.0",
     "koa-body": "^2.1.0",
