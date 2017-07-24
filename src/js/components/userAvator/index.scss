@@ -1,0 +1,61 @@
+.m-userAvator {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin-left: 32px;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.m-userAvator_icon {
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -16px;
+  top: 50%;
+  margin-top: -16px;
+  box-sizing: border-box;
+}
+.m-userAvator:hover {
+  border-top: 3px solid #16B999;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  .m-userAvator_icon {
+    margin-top: -17.5px;
+  }
+  .m-userNavList {
+    margin-top: -3.5px;
+    margin-left: -1px;
+  }
+}
+
+.m-userNavList {
+  width: 160px;
+  position: absolute;
+  top: 51px;
+  background-color: #fff;
+  left: -116px;
+  border: 1px solid #ddd;
+  border-top: 0;
+  box-sizing: border-box;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    li {
+      padding-left: 60px;
+      line-height: 44px;
+    }
+    li:hover {
+      background-color: #F5F8FA;
+    }
+    a {
+      color: #555;
+      text-decoration: none;
+    }
+  }
+}

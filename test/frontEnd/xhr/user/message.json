@@ -1,0 +1,20 @@
+[
+  {
+    "id": "uuid1202",
+    "circleId": 12653,
+    "topicId": 18762,
+    "brief": "某某评论了主题啦啦啦"
+  },
+  {
+    "id": "uuid1102",
+    "circleId": 13871,
+    "topicId": 12980,
+    "brief": "某某评论了主题啦啦啦"
+  },
+  {
+    "id": "uuid1002",
+    "circleId": 16521,
+    "topicId": 20182,
+    "brief": "圈子动态型"
+  }
+]

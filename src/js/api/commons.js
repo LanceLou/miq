@@ -21,7 +21,7 @@ const Fetch = {
           console.log(err);
           reject(err);
         } else {
-          resolve(res);
+          resolve(res.body);
         }
       });
   }),
@@ -54,7 +54,7 @@ const Fetch = {
           console.log(err);
           reject(err);
         } else {
-          resolve(res);
+          resolve(res.body);
         }
       });
   }),
@@ -71,7 +71,7 @@ const Fetch = {
           console.log(err);
           reject(err);
         } else {
-          resolve(res);
+          resolve(res.body);
         }
       });
   }),
@@ -87,7 +87,7 @@ const Fetch = {
           console.log(err);
           reject(err);
         } else {
-          resolve(res);
+          resolve(res.body);
         }
       });
   }),
@@ -103,7 +103,7 @@ const Fetch = {
           console.log(err);
           reject(err);
         } else {
-          resolve(res);
+          resolve(res.body);
         }
       });
   }),

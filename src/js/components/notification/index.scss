@@ -1,3 +1,121 @@
 .m-notifContainer {
+  height: 50px;
+  width: 30px;
+  position: relative;
+  margin-left: 36px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.m-noticeIcon {
+  width: 50px;
+  height: 50px;
+  display: block;
   background-image: url('https://ws1.sinaimg.cn/large/ad5d774bgy1fhn7bhskqrj20m80go0td.jpg');
+  background-position: -168px -37px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.m-noticeIcon em {
+  width: 8px;
+  height: 8px;
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  background-color: red;
+  top: 9px;
+  right: 0;
+}
+
+.m-noticeIcon:hover {
+  background-position: -168px -92px;
+}
+
+.m-notiContent {
+  width: 420px;
+  height: 300px;
+  left: -330px;
+  background: #fff;
+  position: absolute;
+  top: 70px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 1px 1px 0px #ccc;
+  padding-bottom: 40px;
+}
+.m-motiList-nothing:after {
+  content: '';
+  width: 160px;
+  height: 200px;
+  display: block;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  margin-left: -80px;
+  background-position: -540px -220px;
+  background-image: url(https://ws1.sinaimg.cn/large/ad5d774bgy1fhn7bhskqrj20m80go0td.jpg);
+}
+
+.m-notiContent:before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 0px;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 12px solid #fff;
+  position: absolute;
+  right: 62px;
+  top: -12px;
+}
+
+.m-notiContent ul {
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding-left: 0;
+  padding-bottom: 43px;
+  overflow-y: scroll;
+}
+.m-notiContent ul li {
+  list-style: none;
+  padding-left: 15px;
+}
+.m-notiHeader {
+  h5 {
+    margin: 0;
+    line-height: 39px;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+  line-height: 42px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.m-notiHeader-resolveAll {
+  width: 50px;
+  height: 42px;
+  outline: none;
+  display: inline-block;
+  vertical-align: bottom;
+  position: absolute;
+  right: 20px;
+  background-image: url('https://ws1.sinaimg.cn/large/ad5d774bgy1fhn7bhskqrj20m80go0td.jpg');
+  background-position: -139px -181px;
+  cursor: pointer;
+}
+
+.m-noticeFooter {
+  width: 100%;
+  line-height: 40px;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  box-sizing: border-box;
+  color: #ccc;
+  border-top: 1px solid #eee;
+  cursor: pointer;
 }
