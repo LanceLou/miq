@@ -1,5 +1,5 @@
 .m-userAvator {
-  width: 50px;
+  width: 60px;
   height: 50px;
   position: relative;
   margin-left: 32px;
@@ -31,6 +31,9 @@
     margin-top: -3.5px;
     margin-left: -1px;
   }
+  .m-userNavList{
+    display: block;
+  }
 }
 
 .m-userNavList {
@@ -38,10 +41,11 @@
   position: absolute;
   top: 51px;
   background-color: #fff;
-  left: -116px;
+  left: -100px;
   border: 1px solid #ddd;
   border-top: 0;
   box-sizing: border-box;
+  display: none;
   ul {
     list-style: none;
     margin: 0;
@@ -49,9 +53,30 @@
     li {
       padding-left: 60px;
       line-height: 44px;
+      i {
+        background-image: url("https://ws1.sinaimg.cn/large/ad5d774bgy1fhn7bhskqrj20m80go0td.jpg");
+        width: 40px;
+        height: 44px;
+        display: block;
+        position: absolute;
+        left: 9px;
+      }
+    }
+    li:nth-child(1) i{
+      background-position: -377px -90px;
+    }
+    li:nth-child(2) i{
+      background-position: -409px -50px;
+    }
+    li:nth-child(3) i{
+      background-position: -377px -50px;
+    }
+    li:nth-child(4) i{
+      background-position: -409px -93px;
     }
     li:hover {
       background-color: #F5F8FA;
+      cursor: pointer;
     }
     a {
       color: #555;

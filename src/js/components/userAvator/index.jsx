@@ -11,10 +11,10 @@ const UserAvatorComponent = (props) => {
     <span className={Style['m-userAvator_icon']} style={logoUrl && { backgroundImage: `url(${logoUrl})` }} />
     <div className={Style['m-userNavList']}>
       <ul>
-        <li><Link to="/topics">我的主题</Link></li>
-        <li><Link to="/collection">我的收藏</Link></li>
-        <li><Link to="/data">我的数据</Link></li>
-        <li><Link to="/loginout">退出登录</Link></li>
+        <li><i className="background_center_norepeat" /><Link to="/topics">我的主题</Link></li>
+        <li><i className="background_center_norepeat" /><Link to="/collection">我的收藏</Link></li>
+        <li><i className="background_center_norepeat" /><Link to="/data">我的数据</Link></li>
+        <li><i className="background_center_norepeat" /><Link to="/loginout">退出登录</Link></li>
       </ul>
     </div>
   </div>);

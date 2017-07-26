@@ -18,6 +18,7 @@ const del = require('del');
  *  TODO: 下阶段优化相关：*******************
  *  1. const cached = require('gulp-cached'); 使用catch & gulp-remember，优化gulp构建，增量build
  *  2. 部署自动化发布，deploy to git
+ *  3. 加入liveload，实现局部更新，HMR
  */
 
 /**
