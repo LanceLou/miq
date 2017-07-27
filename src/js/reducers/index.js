@@ -43,3 +43,9 @@ export const getGlobalToastMessage = state => fromGlobal.getToastMessage(state.g
  * @param {*} state
  */
 export const getGlobalUserDetail = state => fromGlobal.getUserDetail(state.global);
+
+/**
+ * global -> navCollapse
+ * @param {*} state
+ */
+export const getGlobalNavCollapse = state => fromGlobal.getNavCollapse(state.global);

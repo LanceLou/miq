@@ -15,6 +15,17 @@ export const globalToastMessage = (message, toastType) => (dispatch) => {
   });
 };
 
+/**
+ * 导航栏开关flag
+ * @param {*} flag nav导航栏开关flag
+ */
+export const changeNavCollapse = flag => (dispatch) => {
+  const type = flag ? 'GLOBAL_NAV_COLLAPSE' : 'GLOBAL_NAV_OPRN';
+  dispatch({
+    type,
+  });
+};
+
 export const getUserDetail = () => dispatch => userApi.getUserDetail().then((response) => {
   dispatch({
     type: 'USERDETAIL_FETCH_SECCESS',

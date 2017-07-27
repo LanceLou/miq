@@ -4,29 +4,35 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classNames from 'classnames/bind';
 import eventemit from 'Util/event';
+import { getGlobalNavCollapse } from 'Reducers';
 import { getUserDetail } from 'Actions/global';
 import 'Styles/app.scss';
 import Header from '../header';
 import Nav from '../nav';
-import styles from './index.scss';
+import Style from './index.scss';
 
-// 初始化用户信息
-getUserDetail();
+const cx = classNames.bind(Style);
 
 const App = (props) => {
+  const areaClassName = cx('app-appContainer', { 'app-appContainer-navCollapse': props.navCollapse });
   props.getUserDetail();
   return (<div onClick={() => { eventemit.emit('documentclick'); }} role="presentation">
     <Header />
-    <div className={styles.appContainer}>
+    <div className={areaClassName}>
       <Nav />
-      <div>{props.children}</div>
+      <div className={Style['app-displayArea']}>{props.children}</div>
     </div>
   </div>);
 };
 App.propTypes = {
   children: PropTypes.element.isRequired,
   getUserDetail: PropTypes.func.isRequired,
+  navCollapse: PropTypes.bool.isRequired,
 };
-const AppComponent = connect(null, { getUserDetail })(App);
+const mapStateToAppProps = state => ({
+  navCollapse: getGlobalNavCollapse(state),
+});
+const AppComponent = connect(mapStateToAppProps, { getUserDetail })(App);
 export default AppComponent;

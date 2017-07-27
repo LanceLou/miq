@@ -21,10 +21,28 @@ const userDetail = (state = {}, action) => {
   }
 };
 
+/**
+ * 导航栏开关state
+ * @param {*} state
+ * @param {*} action
+ */
+const navCollapse = (state = false, action) => {
+  switch (action.type) {
+    case 'GLOBAL_NAV_COLLAPSE':
+      return true;
+    case 'GLOBAL_NAV_OPRN':
+      return false;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   toastMessage,
   userDetail,
+  navCollapse,
 });
 
+export const getNavCollapse = state => state.navCollapse;
 export const getToastMessage = state => state.toastMessage;
 export const getUserDetail = state => state.userDetail;

@@ -1,0 +1,49 @@
+.nav-container {
+  width: 280px;
+  position: relative;
+  left: -280px;
+  height: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: left 0.3s ease-in-out;
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      line-height: 40px;
+      box-sizing: border-box;
+      padding-left: 20px;
+      font-size: 0.9rem;
+      padding-right: 30px;
+      &:hover {
+        background-color: #F5F8FA;
+        cursor: pointer;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: #555;
+    }
+  }
+}
+.nav-container_collapse {
+  left: -560px;
+}
+.nav-collapseBtn {
+  display: block;
+  width: 36px;
+  height: 40px;
+  position: absolute;
+  top: 3px;
+  left: 280px;
+  background-image: url(https://ws1.sinaimg.cn/large/ad5d774bgy1fhn7bhskqrj20m80go0td.jpg);
+  background-position: -89px -45px;
+  z-index: 10;
+  outline: none;
+}
+.nav-collapseBtn:hover{
+  cursor: pointer;
+  background-position: -51px -45px;
+}
