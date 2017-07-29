@@ -1,0 +1,18 @@
+[
+  {
+    "id": 19999,
+    "name": "互联网小道消息群",
+    "intro": "专注于互联网小道消息啦啦啦，哈哈",
+    "creator": "3",
+    "logoUrl": "https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400",
+    "createAt": 1500652800000
+  },
+  {
+    "id": 20212,
+    "name": "前端进阶",
+    "intro": "前端的进阶，进阶的前端",
+    "creator": "12",
+    "logoUrl": "https://lh3.googleusercontent.com/-j_9EI9CnO50/AAAAAAAAAAI/AAAAAAAAAug/QRmR_12vjGQ/s24-p-rw-no/photo.jpg",
+    "createAt": 1498060800000
+  }
+]

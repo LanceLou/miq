@@ -3,6 +3,7 @@ import Fetch from './commons';
 const baseUrl = {
   userDetail: '/xhr/user/detail.json',
   userMessage: '/xhr/user/message.json',
+  userCircles: '/xhr/user/circles.json',
 };
 
 
@@ -27,3 +28,5 @@ export const getUserDetail = Fetch.get(baseUrl.userDetail);
  * 用户通知详细
  */
 export const getUserMessage = Fetch.get(baseUrl.userMessage);
+
+export const getUserCircles = Fetch.get(baseUrl.userCircles);

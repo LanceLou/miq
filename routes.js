@@ -1,4 +1,6 @@
-const router = require('koa-router')();
+const Router = require('koa-router');
+const userControllers = require('./controllers/user.controller');
+const circleController = require('./controllers/circle.controller');
 
 /**
  * GET(SELECT)： 从服务器取出一个资源
@@ -8,8 +10,13 @@ const router = require('koa-router')();
  * DELETE(DELETE): 从服务器删除数据
  */
 // restful支持
-router.post('/comment/new', add)
-  .DELETE('/comment/deleted', create);
+const router = new Router();
+
+router.get('/xhr/user/detail.json', userControllers.getUserDetail);
+
+router.get('/xhr/user/message.json', userControllers.getUserMessage);
+
+router.get('/xhr/user/circles.json', circleController.getUserAllCircles);
 
 module.exports = router.routes();
 

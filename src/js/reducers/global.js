@@ -37,12 +37,23 @@ const navCollapse = (state = false, action) => {
   }
 };
 
+const userCircles = (state = [], action) => {
+  switch (action.type) {
+    case 'USERCIRCLES_FETCH_SUCCESS':
+      return action.response;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   toastMessage,
   userDetail,
   navCollapse,
+  userCircles,
 });
 
 export const getNavCollapse = state => state.navCollapse;
 export const getToastMessage = state => state.toastMessage;
 export const getUserDetail = state => state.userDetail;
+export const getUserCircles = state => state.userCircles;

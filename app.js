@@ -9,14 +9,17 @@
  * 1. 优雅退出
  * -------------------------------------------------------------
  */
+const fs = require('fs');
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
+const send = require('koa-send');
 const CSRF = require('koa-csrf');
 const Koa = require('koa');
 const config = require('./config');
 const session = require('koa-session');
 const { auth } = require('./controllers/auth');
 const { mysqlConnectionInitialize } = require('./models/connectionPool');
+const router = require('./routes');
 
 const app = new Koa();
 module.exports = app;
@@ -87,9 +90,26 @@ app.use(async (ctx, next) => {
 });
 // 此处可放置模板渲染服务或者静态文件请求middleware
 app.use(require('koa-static')(`${__dirname}/public`));
+
+// 前端路由刷新，index回传
+app.use(async (ctx, next) => {
+  let done = false;
+  // 纯HTML请求accept
+  if (ctx.request.header.accept.indexOf('text/html,application/xhtml+xml,application/xml') === 0) {
+    // 前端路由处理，返回首页
+    ctx.response.type = 'text/html';
+    done = await send(ctx, '/index.html', { root: `${__dirname}/public` });
+  }
+  if (!done) {
+    await next();
+  }
+});
+
 // 请求体解析
-app.use(koaBody);
+app.use(koaBody());
+
 // 路由设置开启
+app.use(router);
 
 // 最终无处理错误处理404, 全部当做json accept返回。
 app.use(async (ctx) => {
@@ -99,70 +119,5 @@ app.use(async (ctx) => {
     message: 'Page Not Found',
   };
 });
-
-
-// router.get('/', )
-
-// // "database"
-
-// const posts = [];
-
-// // middleware
-
-// app.use(logger());
-
-// app.use(render);
-
-// app.use(koaBody());
-
-// // route definitions
-
-// router.get('/', list)
-//   .get('/post/new', add)
-//   .get('/post/:id', show)
-//   .post('/post', create);
-
-// app.use(router.routes());
-
-// /**
-//  * Post listing.
-//  */
-
-// async function list(ctx) {
-//   await ctx.render('list', { posts });
-// }
-
-// /**
-//  * Show creation form.
-//  */
-
-// async function add(ctx) {
-//   await ctx.render('new');
-// }
-
-// /**
-//  * Show post :id.
-//  */
-
-// async function show(ctx) {
-//   const id = ctx.params.id;
-//   const post = posts[id];
-//   if (!post) ctx.throw(404, 'invalid post id');
-//   await ctx.render('show', { post });
-// }
-
-// /**
-//  * Create a post.
-//  */
-
-// async function create(ctx) {
-//   const post = ctx.request.body;
-//   const id = posts.push(post) - 1;
-//   post.created_at = new Date();
-//   post.id = id;
-//   ctx.redirect('/');
-// }
-
-// // listen
 
 if (!module.parent) app.listen(config.port);

@@ -1,6 +1,7 @@
 
 const Lib = require('../lib/lib.js');
 const ModelError = require('./modelerror.js');
+const circleModel = require('./circle');
 
 /**
  * 用户圈子映射表model
@@ -45,9 +46,20 @@ class UserCircle {
    * @memberof UserCircle
    */
   static async findUserAllCircleByUid(userId) {
-    const sql = 'Select * From user_circle where user = ? and status = 1';
-    const [circles] = await global.db.query(sql, [userId]);
-    return circles;
+    try {
+      const [userCircleMap] = await global.db.query('Select * From user_circle where user = ? and status = 1', [userId]);
+      let circles = []; // 根据圈子id和最后已读topic id的map来获取对应的未读topic
+      for (let i = 0; i < userCircleMap.length; i += 1) {
+        circles.push(circleModel.get(userCircleMap[i].circle));
+      }
+      circles = await Promise.all(circles);
+      return circles;
+    } catch (e) {
+      switch (e.code) {
+        case 'ER_BAD_FIELD_ERROR': throw new ModelError(403, 'Unrecognised field');
+        default: Lib.logException('user.getBy', e); throw new ModelError(500, 'DB error');
+      }
+    }
   }
 
   /**

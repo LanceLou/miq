@@ -26,9 +26,22 @@ export const changeNavCollapse = flag => (dispatch) => {
   });
 };
 
+/**
+ * 用户基本信息获取(Details)
+ */
 export const getUserDetail = () => dispatch => userApi.getUserDetail().then((response) => {
   dispatch({
     type: 'USERDETAIL_FETCH_SECCESS',
+    response,
+  });
+});
+
+/**
+ * 用户所加入的圈子信息获取
+ */
+export const getUserCircles = () => dispatch => userApi.getUserCircles().then((response) => {
+  dispatch({
+    type: 'USERCIRCLES_FETCH_SUCCESS',
     response,
   });
 });

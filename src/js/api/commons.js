@@ -2,8 +2,9 @@ import request from 'superagent';
 
 import Tool from '../util/tool';
 
+console.log(process.env.NODE_ENV);
 
-const mainUrl = process.env.NODE_ENV === 'product' ? 'http://miq.lancelou.com' : 'http://localhost:8080';
+const mainUrl = process.env.NODE_ENV === 'production' ? 'http://miq.lancelou.com' : 'http://localhost:8080';
 
 const addCsrfToken = (params) => {
   const tokenKV = { _csrf: Tool.getCookie('csrfToken') };

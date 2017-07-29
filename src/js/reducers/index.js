@@ -49,3 +49,9 @@ export const getGlobalUserDetail = state => fromGlobal.getUserDetail(state.globa
  * @param {*} state
  */
 export const getGlobalNavCollapse = state => fromGlobal.getNavCollapse(state.global);
+
+/**
+ * global -> userCircles
+ * @param {*} state
+ */
+export const getGlobalUserCircles = state => fromGlobal.getUserCircles(state.global);

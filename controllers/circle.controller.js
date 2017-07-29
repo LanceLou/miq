@@ -1,3 +1,4 @@
+const userCircle = require('../models/userCircle');
 /**
  * -------------------------------------------------------------
  * circle.controller.js
@@ -6,3 +7,16 @@
  * -------------------------------------------------------------
  */
 
+const getUserAllCircles = async (ctx) => {
+  try {
+    const userId = ctx.session.userId;
+    const circles = await userCircle.findUserAllCircleByUid(userId);
+    ctx.body = circles;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+module.exports = {
+  getUserAllCircles,
+};
