@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Tools from 'Util/tool';
 import eventemit from 'Util/event';
+import { getUserDetail, getUserCircles } from 'Actions/global';
 import * as action from 'Actions/search';
 import Style from './index.scss';
 import ReminderList from './reminderList';
@@ -31,6 +32,9 @@ class SearchComponent extends React.Component {
         showReminder: false,
       });
     });
+    // 做一些全局数据初始化的工作：如用户基础信息获取，圈子信息获取等
+    this.props.getUserDetail(); // 用户基础信息
+    this.props.getUserCircles(); // 用户圈子信息
   }
   /**
    * fat arrow function and ES2015+ class properties.(property initializer.)
@@ -105,11 +109,13 @@ class SearchComponent extends React.Component {
 
 SearchComponent.propTypes = {
   fetchSearchResult: PropTypes.func.isRequired,
+  getUserDetail: PropTypes.func.isRequired,
+  getUserCircles: PropTypes.func.isRequired,
 };
 
 const SearchComponentWithRedux = connect(
   undefined,
-  action,
+  { ...action, getUserDetail, getUserCircles },
 )(SearchComponent);
 
 export default SearchComponentWithRedux;

@@ -53,6 +53,7 @@ class UserCircle {
         circles.push(circleModel.get(userCircleMap[i].circle));
       }
       circles = await Promise.all(circles);
+      console.log(circles);
       return circles;
     } catch (e) {
       switch (e.code) {

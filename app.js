@@ -9,7 +9,6 @@
  * 1. 优雅退出
  * -------------------------------------------------------------
  */
-const fs = require('fs');
 const logger = require('koa-logger');
 const koaBody = require('koa-body');
 const send = require('koa-send');
