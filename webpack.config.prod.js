@@ -81,7 +81,7 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
     autoprefixer,
   ],
 };

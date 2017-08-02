@@ -149,7 +149,7 @@ async function thirdPartLoginCb(ctx, bodyData) {
  */
 async function userStatusCheck(userId) {
   const user = await userModel.get(userId);
-  if (user.status === 2) {
+  if (!user || user.status === 2) {
     return false;
   }
   return true;
@@ -158,10 +158,10 @@ async function auth(ctx, next) {
   const session = ctx.session;
   if (session.userId) {
     // 用户已登录, 检查用户是否被锁定
-    if (userStatusCheck(session.userId)) {
+    if (await userStatusCheck(session.userId)) {
       await next();
     } else {
-      ctx.throw(401, 'user locked');
+      ctx.throw(401, 'user locked or user unExist');
     }
   } else if (ctx.path.indexOf('/oauth2callback') === 0) {
     const bodyData = await getBody(ctx);

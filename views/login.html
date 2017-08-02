@@ -59,14 +59,14 @@
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://miq.lancelou.com/oauth2callback');
+        xhr.open('POST', '/oauth2callback');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
           // console.log('Signed in as: ' + xhr.responseText);
           // var res = JSON.parse(xhr.responseText);
           console.log(xhr);
           if (xhr.status === 200) {
-            window.location = 'http://miq.lancelou.com/';
+            window.location = '/';
           }
         };
         xhr.send('idtoken=' + id_token);

@@ -29,6 +29,7 @@ const fs = require('fs');
 
 const mockMiddleware = (req, res, next) => {
   let url = req.url;
+  console.log(url);
   url = url.split('?')[0]; // 取有效部分
   // 走API数据mock
   if (url.indexOf('xhr') >= 0) {

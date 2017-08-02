@@ -9,8 +9,8 @@ const uglify = require('gulp-uglify');
 const csso = require('gulp-csso');
 const connect = require('gulp-connect'); // dev-server
 const openurl = require('openurl');
-const mockMiddleware = require('./test/frontEnd/mocks'); // 数据Mock
 const del = require('del');
+const forward = require('gulp-forward');
 /**
  * gulp:
  *  任务编排，打包(合并，(图片，代码，扰乱)压缩，rv)，build，dev-server，调用webpack
@@ -19,6 +19,7 @@ const del = require('del');
  *  1. const cached = require('gulp-cached'); 使用catch & gulp-remember，优化gulp构建，增量build
  *  2. 部署自动化发布，deploy to git
  *  3. 加入liveload，实现局部更新，HMR
+ *  4. 引入browsersync，同步浏览器更新测试
  */
 
 /**
@@ -60,6 +61,8 @@ const config = {
   isOpenUrl: true, // 是否自动打开
   openUrl: 'http://localhost:8080',
 };
+
+let gulpForwardConfig = null;
 
 // --------------------------清除之前build的结果(包含publicDir和dist)-------------------------- start
 function clean(done) { // 清除临时开发打包目录
@@ -179,7 +182,8 @@ function connectServer(done) {
     root: dist.root, // dist 测试/开发时使用dist目录
     port: 8080,
     livereload: true,
-    middleware: () => [mockMiddleware],
+    middleware: () => [forward(gulpForwardConfig)],
+    fallback: `${dist.root}/index.html`,
   });
   done();
 }
@@ -230,16 +234,57 @@ function binToDeploy() {
 }
 // ----------添加文件&压缩(所有静态文件)hash,rev,revreplace，deploy时----------end
 
+// ----------生成gulp-forward配置对象----------start
+function generateDefaultGFtConfig(done) {
+  gulpForwardConfig = {
+    proxyOpt: 1,
+    mockConfig: {
+      mockDir: `${__dirname}/test/frontEnd/`,
+      mockReg: /\/xhr(\/[\w.]+)+$/,
+    },
+  };
+  done();
+}
+
+function generateRemoteTestGFConfig(done) {
+  gulpForwardConfig = {
+    proxyOpt: 2,
+    remoteUrl: 'http://miq.lancelou.com',
+    remotePort: 80,
+    rules: [
+      {
+        reg: /(\/js\/\w*)-.*(\.js)$/,
+        replace: '$1$2',
+      },
+      {
+        reg: /(\/js\/.*\.js.map)$/,
+        replace: '$1',
+      },
+    ],
+  };
+  done();
+}
+// ----------生成gulp-forward配置对象----------start
 
 // --------------------------任务编排--------------------------start
 // dev
 const devTask = gulp.series(
   clean,
+  generateDefaultGFtConfig,
   gulp.parallel(copyAssets, copyHtml, webpackDevelopment),
   connectServer,
   openUrl,
   watch);
 gulp.task('default', devTask);
+
+const remoteTest = gulp.series(
+  clean,
+  generateRemoteTestGFConfig,
+  gulp.parallel(copyAssets, copyHtml, webpackDevelopment),
+  connectServer,
+  openUrl,
+  watch);
+gulp.task('remoteTest', remoteTest);
 
 // production
 gulp.task('build', gulp.series(
