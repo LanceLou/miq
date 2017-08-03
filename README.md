@@ -1,6 +1,6 @@
 # miq
 
-![miq demo](https://ws1.sinaimg.cn/large/ad5d774bly1fi6zqwvna8j213z0mt0tk.jpg)
+![miq demo](https://ws1.sinaimg.cn/large/ad5d774bly1fi6zsvg556j213z0mzmxz.jpg)
 
 Hi, all!
 
