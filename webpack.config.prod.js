@@ -77,6 +77,9 @@ const config = {
       }, {
         test: /\.(png|jpg)$/,
         loader: 'url-loader?limit=8192',
+      }, {
+        test: path.resolve(__dirname, 'src/js/util/platform'),
+        loader: 'exports-loader?window.gapi!script-loader',
       },
     ],
   },

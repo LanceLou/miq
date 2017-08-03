@@ -105,14 +105,14 @@ async function thirdPartLoginCb(ctx, bodyData) {
       const basicInfo = await getUserGithubInfo(token.access_token);
       if (basicInfo) {
         // DB查询用户或存储
-        const user = await userModel.getBy('thirdpartUniq', basicInfo.id);
+        const user = await userModel.getBy('thirdpartUniq', basicInfo.html_url);
         if (user.length) {
           ctx.session.userId = user[0].id;
         } else {
           user.userId = await createUser(basicInfo, 1);
           ctx.session.userId = user.userId;
         }
-        // 重定向至登录
+        // 重定向至主页
         ctx.throw(302, 'Github auth success, redirect to index');
       } else {
         // 否则认证失败
@@ -154,11 +154,21 @@ async function userStatusCheck(userId) {
   }
   return true;
 }
+
+async function logout(ctx) {
+
+}
+
 async function auth(ctx, next) {
   const session = ctx.session;
   if (session.userId) {
     // 用户已登录, 检查用户是否被锁定
     if (await userStatusCheck(session.userId)) {
+      // 登出处理
+      if (ctx.path === '/logout') {
+        ctx.session.userId = null;
+        ctx.redirect('/login.html');
+      }
       await next();
     } else {
       ctx.throw(401, 'user locked or user unExist');

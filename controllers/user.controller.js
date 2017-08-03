@@ -32,7 +32,13 @@ const getUserMessage = async (ctx) => {
   }
 };
 
+const logOut = async (ctx) => {
+  ctx.session.userId = null;
+  ctx.redirect('/login.html');
+};
+
 module.exports = {
   getUserDetail,
   getUserMessage,
+  logOut,
 };

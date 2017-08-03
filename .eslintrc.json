@@ -4,7 +4,8 @@
   "globals": {
     "document": true,
     "foo": true,
-    "window": true
+    "window": true,
+    "gapi": true
   },
   "rules": {
     "import/no-extraneous-dependencies": "off",

@@ -18,5 +18,7 @@ router.get('/xhr/user/message.json', userControllers.getUserMessage);
 
 router.get('/xhr/user/circles.json', circleController.getUserAllCircles);
 
+// router.get('/logout', userControllers.logOut);
+
 module.exports = router.routes();
 

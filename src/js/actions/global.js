@@ -34,6 +34,7 @@ export const getUserDetail = () => dispatch => userApi.getUserDetail().then((res
     type: 'USERDETAIL_FETCH_SECCESS',
     response,
   });
+  return response;
 });
 
 /**
