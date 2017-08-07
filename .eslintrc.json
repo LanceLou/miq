@@ -11,6 +11,7 @@
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
     "import/extensions": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "react/require-default-props": "off"
   }
 }

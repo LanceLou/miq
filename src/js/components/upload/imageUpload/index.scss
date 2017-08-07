@@ -1,0 +1,26 @@
+.element-imgUploader {
+  position: relative;
+  width: 160px;
+  height: 119px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  background-size: cover;
+  background-repeat: no-repeat;
+  input {
+    display: none;
+  }
+  .upload-btn {
+    width: 100%;
+    background-color: rgba(238, 238, 238, 0.8);
+    line-height: 25px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    outline: none;
+    cursor: pointer;
+  }
+  .upload-btn-ing {
+    color: #aaa;
+  }
+}

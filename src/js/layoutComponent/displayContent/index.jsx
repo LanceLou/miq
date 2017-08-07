@@ -12,6 +12,4 @@ import React from 'react';
  */
 const Circle = () => <div>圈子相关功能布局组件</div>;
 
-const Search = () => <div>搜索相关功能布局组件</div>;
-
-export { Circle, Search };
+export { Circle };

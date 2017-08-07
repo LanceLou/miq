@@ -2,8 +2,6 @@ import request from 'superagent';
 
 import Tool from '../util/tool';
 
-console.log(process.env.NODE_ENV);
-
 const mainUrl = process.env.NODE_ENV === 'production' ? 'http://miq.lancelou.com' : 'http://localhost:8080';
 
 const addCsrfToken = (params) => {
@@ -61,11 +59,11 @@ const Fetch = {
   }),
   postByFormData: url => params => new Promise((resolve, reject) => {
     // formDate 文件上传相关
-    const reqParams = addCsrfToken(params);
+    // const reqParams = addCsrfToken(params);
     request
-      .post(`${mainUrl}${url}`)
+      .post(url)
       .set('Content-Type', 'multipart/form-data')
-      .send(reqParams)
+      .send(params)
       .end((err, res) => {
         // 部署全局统一提示
         if (err) {

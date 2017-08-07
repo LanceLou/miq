@@ -11,6 +11,10 @@ const Nav = props => (<div className={Style['nav-container']}>
     { props.userCircles.map(circle => (
       <NavLink to={`/circle/${circle.id}`} key={circle.id}><li className="text-oneline_omit">{circle.name}</li></NavLink>
     ))}
+    <li className={Style['nav-opts']}>
+      <NavLink to="/create"><sapn>新建圈子</sapn></NavLink>
+      <NavLink to="/join"><sapn>加入圈子</sapn></NavLink>
+    </li>
   </ul>
   <i className={Style['nav-collapseBtn']} onClick={() => props.changeNavCollapse(!props.navCollapse)} role="button" tabIndex="-1" />
 </div>);

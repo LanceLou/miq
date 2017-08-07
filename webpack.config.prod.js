@@ -46,6 +46,7 @@ const config = {
       Images: path.resolve(__dirname, 'src/assets/images/'),
       Util: path.resolve(__dirname, 'src/js/util/'),
       Reducers: path.resolve(__dirname, 'src/js/reducers/'),
+      Config: path.resolve(__dirname, 'config.js'),
     },
   },
   module: {

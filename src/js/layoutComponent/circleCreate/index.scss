@@ -1,0 +1,36 @@
+.formContent {
+  box-sizing: border-box;
+  text-align: left;
+  .formItem {
+    width: 100%;
+    display: block;
+    padding: 15px 0 15px 30%;
+    box-sizing: border-box;
+    position: relative;
+    em {
+      color: red;
+      position: absolute;
+      line-height: 25px;
+      right: 50px;
+      font-style: normal;
+    }
+  }
+  label {
+    vertical-align: top;
+  }
+  .input_text {
+    margin: 0;
+    padding-left: 5px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    outline: none;
+    line-height: 25px;
+    width: 260px;
+    border-radius: 3px;
+    appearance: none;
+  }
+  textarea {
+    resize: none;
+    height: 5rem;
+  }
+}

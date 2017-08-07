@@ -13,9 +13,39 @@
 .element-outline_none {
   outline: none;
 }
+.element-card {
+  display: block;
+  margin: 16px 30px;
+}
+.element-cardContent {
+  text-align: center;
+  min-height: 360px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-bottom: 50px;
+}
+.form-label {
+  display: inline-block;
+  box-sizing: border-box;
+  padding-right: 12px;
+  text-align: right;
+  line-height: 32px;
+}
 button.btn {
   background-color: transparent;
   appearance: none;
   border: 0;
   outline: 0;
+}
+
+a.btn {
+  padding: 3px 36px;
+  border-radius: 5px;
+  background-color: #16B999;
+  color: #fff;
+  margin: 0 20px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
 }

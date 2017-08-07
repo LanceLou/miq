@@ -1,12 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import App from '../layoutComponent/app';
+import { Route } from 'react-router-dom';
 import { Circle } from '../layoutComponent/displayContent';
 
-const AppRouter = () => (<Router>
-  <App>
-    <Route exex path="/" component={Circle} />
-  </App>
-</Router>);
+import CircleJoin from '../layoutComponent/circleJoin';
+import CircleCreate from '../layoutComponent/circleCreate';
+
+const AppRouter = () => (
+  <div>
+    <Route exact path="/" component={Circle} />
+    <Route path="/create" component={CircleCreate} />
+    <Route path="/join" component={CircleJoin} />
+  </div>
+);
 
 export default AppRouter;

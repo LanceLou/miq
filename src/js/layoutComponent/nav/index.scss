@@ -12,6 +12,8 @@
   ul {
     padding: 0;
     margin: 0;
+    max-height: 400px;
+    overflow-y: scroll;
     li {
       line-height: 40px;
       box-sizing: border-box;
@@ -26,6 +28,32 @@
     a {
       text-decoration: none;
       color: #555;
+    }
+  }
+  .nav-opts {
+    position: absolute;
+    border-top: 0.5px solid #ccc;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    a {
+      text-align: center;
+      display: inline-block;
+      width: 50%;
+      box-sizing: border-box;
+      &:hover {
+        background-color: #F5F8FA;
+      }
+      &:first-child {
+        border-right: 0.1px solid #ccc;
+      }
+      &:last-child {
+        border-left: -0.1px solid #ccc;
+      }
+    }
+    &:hover{
+      background-color: transparent;
     }
   }
 }

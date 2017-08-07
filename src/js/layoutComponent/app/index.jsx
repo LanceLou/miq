@@ -4,6 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import eventemit from 'Util/event';
 import { getGlobalNavCollapse } from 'Reducers';
@@ -11,21 +12,25 @@ import 'Styles/app.scss';
 import Header from '../header';
 import Nav from '../nav';
 import Style from './index.scss';
+import AppRouter from '../../routes';
 
 const cx = classNames.bind(Style);
 
 const App = (props) => {
   const areaClassName = cx('app-appContainer', { 'app-appContainer-navCollapse': props.navCollapse });
-  return (<div onClick={() => { eventemit.emit('documentclick'); }} role="presentation">
-    <Header />
-    <div className={areaClassName}>
-      <Nav />
-      <div className={Style['app-displayArea']}>{props.children}</div>
+  return (<Router>
+    <div onClick={() => { eventemit.emit('documentclick'); }} role="presentation">
+      <Header />
+      <div className={areaClassName}>
+        <Nav />
+        <div className={Style['app-displayArea']}>
+          <AppRouter />
+        </div>
+      </div>
     </div>
-  </div>);
+  </Router>);
 };
 App.propTypes = {
-  children: PropTypes.element.isRequired,
   navCollapse: PropTypes.bool.isRequired,
 };
 const mapStateToAppProps = state => ({
