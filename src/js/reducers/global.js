@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux';
 
+/**
+ * 全局toast对应的reducer
+ * @param {*} state 当前reducer对应的state
+ * @param {*} action .message: toast对应的文案，.toastType: toast类型，1: success 2: error以配置不同的提示配色
+ */
 const toastMessage = (state = null, action) => {
   switch (action.type) {
     case 'GLOBAL_MESSAGE_TOAST':

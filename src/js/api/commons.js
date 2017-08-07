@@ -24,6 +24,22 @@ const Fetch = {
         }
       });
   }),
+  put: url => params => new Promise((resolve, reject) => {
+    // put更新远程资源，带对象全部字段
+    const reqParams = addCsrfToken(params);
+    request
+      .put(`${mainUrl}${url}`)
+      .send(reqParams)
+      .end((err, res) => {
+        // 部署全局统一提示
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+  }),
   post: url => params => new Promise((resolve, reject) => {
     // 单纯post方式 url-encode
     const reqParams = addCsrfToken(params);

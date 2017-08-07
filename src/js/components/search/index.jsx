@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Tools from 'Util/tool';
 import GApi from 'Util/platform';
 import eventemit from 'Util/event';
-import { getUserDetail, getUserCircles } from 'Actions/global';
+import { getUserDetail, getUserCircles, globalToastMessage } from 'Actions/global';
 import * as action from 'Actions/search';
 import Style from './index.scss';
 import ReminderList from './reminderList';
@@ -41,8 +41,18 @@ class SearchComponent extends React.Component {
           GApi.auth2.init();
         });
       }
+    }, () => {
+      this.props.globalToastMessage({
+        message: '获取用户信息失败！',
+        toastType: 2,
+      });
     });
-    this.props.getUserCircles(); // 用户圈子信息
+    this.props.getUserCircles(undefined, () => {
+      this.props.globalToastMessage({
+        message: '圈子信息获取失败啦！',
+        toastType: 2,
+      });
+    }); // 用户圈子信息
   }
   /**
    * fat arrow function and ES2015+ class properties.(property initializer.)
@@ -119,11 +129,12 @@ SearchComponent.propTypes = {
   fetchSearchResult: PropTypes.func.isRequired,
   getUserDetail: PropTypes.func.isRequired,
   getUserCircles: PropTypes.func.isRequired,
+  globalToastMessage: PropTypes.func.isRequired,
 };
 
 const SearchComponentWithRedux = connect(
   undefined,
-  { ...action, getUserDetail, getUserCircles },
+  { ...action, getUserDetail, getUserCircles, globalToastMessage },
 )(SearchComponent);
 
 export default SearchComponentWithRedux;

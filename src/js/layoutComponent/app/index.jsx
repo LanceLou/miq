@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import eventemit from 'Util/event';
 import { getGlobalNavCollapse } from 'Reducers';
+import Toast from 'Components/toast';
 import 'Styles/app.scss';
 import Header from '../header';
 import Nav from '../nav';
@@ -20,6 +21,7 @@ const App = (props) => {
   const areaClassName = cx('app-appContainer', { 'app-appContainer-navCollapse': props.navCollapse });
   return (<Router>
     <div onClick={() => { eventemit.emit('documentclick'); }} role="presentation">
+      <Toast />
       <Header />
       <div className={areaClassName}>
         <Nav />

@@ -1,4 +1,5 @@
 import * as userApi from 'Api/user.api';
+import lodash from 'lodash';
 /**
  * 全局性action creator
  * 如：Toast提示，全局User基础信息，等
@@ -7,13 +8,13 @@ import * as userApi from 'Api/user.api';
 /**
  * 全局Toast Message ac
  */
-export const globalToastMessage = (message, toastType) => (dispatch) => {
+export const globalToastMessage = toastMessage => lodash.throttle((dispatch) => {
+  console.log('dispatch toast lalala');
   dispatch({
     type: 'GLOBAL_MESSAGE_TOAST',
-    message,
-    toastType,
+    ...toastMessage,
   });
-};
+}, 5 * 1000);
 
 /**
  * 导航栏开关flag
