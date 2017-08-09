@@ -1,6 +1,6 @@
 # miq
 
-![miq demo](./src/assets/images/miq-exp.png)
+![miq demo](./src/assets/images/miq.png)
 
 Hi, all!
 
