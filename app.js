@@ -78,8 +78,17 @@ app.use(mysqlConnectionInitialize);
 app.use(auth);
 
 // ->> 认证完毕，正式进入index，服务
+// 请求体解析
+app.use(koaBody());
 // csrf, session, cookie
-app.use(new CSRF());
+app.use(new CSRF({
+  invalidSessionSecretMessage: 'Invalid session secret',
+  invalidSessionSecretStatusCode: 403,
+  invalidTokenMessage: 'Invalid CSRF token',
+  invalidTokenStatusCode: 403,
+  excludedMethods: ['GET', 'HEAD', 'OPTIONS', 'GET'],
+  disableQuery: false,
+}));
 // 加csrf token
 app.use(async (ctx, next) => {
   if (ctx.path === '/') {
@@ -104,8 +113,6 @@ app.use(async (ctx, next) => {
   }
 });
 
-// 请求体解析
-app.use(koaBody());
 
 // 路由设置开启
 app.use(router);

@@ -25,7 +25,7 @@
     "classnames": "^2.2.5",
     "eventemitter2": "^4.1.2",
     "google-auth-library": "^0.10.0",
-    "gulp-forward": "0.0.6",
+    "gulp-forward": "0.0.8",
     "koa": "^2.2.0",
     "koa-body": "^2.1.0",
     "koa-csrf": "^3.0.6",

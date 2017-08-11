@@ -1,6 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { globalToastMessage, getUserCircles } from 'Actions/global';
+import { addCircle } from 'Api/circle.api';
 import classNames from 'classnames/bind';
 import CardHeader from 'Components/cardHeader';
 import ImageUpload from 'Components/upload/imageUpload';
@@ -63,6 +67,7 @@ class CircleCreate extends React.Component {
    * submit the circle create request
    */
   handlerSubmit = () => {
+    const me = this;
     const values = this.state.values;
     let isEdit = true;
     if (!values.id) {
@@ -74,7 +79,14 @@ class CircleCreate extends React.Component {
       if (isEdit) {
         console.log('edit lalala');
       } else {
-        console.log('add lalala');
+        addCircle(this.state.values).then(() => {
+          me.props.globalToastMessage({
+            message: '添加圈子成功',
+            toastType: 1,
+          });
+          me.props.getUserCircles();
+          me.props.history.push('/');
+        });
       }
     }
   }
@@ -142,4 +154,9 @@ CircleCreate.propTypes = {
 };
 
 
-export default CircleCreate;
+const CircleCreateExport = withRouter(connect(
+  undefined,
+  { globalToastMessage, getUserCircles },
+)(CircleCreate));
+
+export default CircleCreateExport;

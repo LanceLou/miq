@@ -51,7 +51,7 @@ class Label {
     } catch (e) {
       switch (e.code) {
         case 'ER_BAD_FIELD_ERROR': throw new ModelError(403, `Unrecognised user fields ${fields}`);
-        default: Lib.logException('Circle.getBy', e); throw new ModelError(500, e.message);
+        default: Lib.logException('Label.getBy', e); throw new ModelError(500, e.message);
       }
     }
   }

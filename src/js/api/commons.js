@@ -6,7 +6,7 @@ const mainUrl = process.env.NODE_ENV === 'production' ? 'http://miq.lancelou.com
 
 const addCsrfToken = (params) => {
   const tokenKV = { _csrf: Tool.getCookie('csrfToken') };
-  return params ? params.assign(params, tokenKV) : tokenKV;
+  return params ? Object.assign(params, tokenKV) : tokenKV;
 };
 
 const Fetch = {

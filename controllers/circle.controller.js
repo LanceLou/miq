@@ -1,4 +1,6 @@
+/* eslint no-underscore-dangle: 0 */
 const userCircle = require('../models/userCircle');
+const circle = require('../models/circle');
 /**
  * -------------------------------------------------------------
  * circle.controller.js
@@ -17,6 +19,31 @@ const getUserAllCircles = async (ctx) => {
   }
 };
 
+const createCircle = async (ctx) => {
+  try {
+    const userId = ctx.session.userId;
+    const params = Object.assign(ctx.request.body);
+    delete params._csrf;
+    params.creator = userId;
+    params.createdAt = new Date();
+    params.status = 1;
+    const circleId = await circle.insert(params);
+    ctx.body = { id: circleId };
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+const search = async (ctx) => {
+  console.log(ctx);
+  // try {
+  //   const kw = ctx.request.body.kw;
+  //   circle.getByOr(['', 'circle'], [kw, kw]);
+  // }
+};
+
 module.exports = {
   getUserAllCircles,
+  createCircle,
+  search,
 };

@@ -21,7 +21,7 @@ class Circle {
   }
 
   /**
-   * 根据圈子的某些field获取圈子对象
+   * 根据圈子的某些field获取圈子对象 and select
    *
    * @static
    * @param [any] field 键名列表
@@ -29,13 +29,48 @@ class Circle {
    * @returns [Circle] 圈子对象
    * @memberof Circle
    */
-  static async getBy(fields, values) {
+  static async getByAnd(fields, values) {
     try {
       if (!fields || !values || fields.length !== values.length) {
         throw new ModelError(400, 'Dao call error'); // bad call
       }
       const wherePart = fields.reduce((cum, field, index) => {
         const tempStr = index > 0 ? ' and ' : ' ';
+        return `${cum}${tempStr}?? = ?`;
+      }, '');
+      const queryParamsArr = [];
+      for (let i = 0; i < fields.length;) {
+        queryParamsArr.push(fields[i]);
+        queryParamsArr.push(values[i]);
+        i += 1;
+      }
+      const sql = `Select * From circle Where${wherePart}`;
+      const [circles] = await global.db.query(sql, queryParamsArr);
+      return circles;
+    } catch (e) {
+      switch (e.code) {
+        case 'ER_BAD_FIELD_ERROR': throw new ModelError(403, `Unrecognised user fields ${fields}`);
+        default: Lib.logException('Circle.getBy', e); throw new ModelError(500, e.message);
+      }
+    }
+  }
+
+  /**
+   * 根据圈子的某些field获取圈子对象 or select
+   *
+   * @static
+   * @param [any] field 键名列表
+   * @param [any] value 键值列表
+   * @returns [Circle] 圈子对象
+   * @memberof Circle
+   */
+  static async getByOr(fields, values) {
+    try {
+      if (!fields || !values || fields.length !== values.length) {
+        throw new ModelError(400, 'Dao call error'); // bad call
+      }
+      const wherePart = fields.reduce((cum, field, index) => {
+        const tempStr = index > 0 ? ' or ' : ' ';
         return `${cum}${tempStr}?? = ?`;
       }, '');
       const queryParamsArr = [];

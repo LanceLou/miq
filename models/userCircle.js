@@ -48,12 +48,14 @@ class UserCircle {
   static async findUserAllCircleByUid(userId) {
     try {
       const [userCircleMap] = await global.db.query('Select * From user_circle where user = ? and status = 1', [userId]);
+      const [userCeeatedCircle] = await global.db.query('Select * From circle where creator = ? and status = 1', [userId]);
       let circles = []; // 根据圈子id和最后已读topic id的map来获取对应的未读topic
+      userCircleMap.concat(userCeeatedCircle);
       for (let i = 0; i < userCircleMap.length; i += 1) {
         circles.push(circleModel.get(userCircleMap[i].circle));
       }
       circles = await Promise.all(circles);
-      console.log(circles);
+      circles = circles.concat(userCeeatedCircle);
       return circles;
     } catch (e) {
       switch (e.code) {

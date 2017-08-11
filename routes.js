@@ -12,11 +12,30 @@ const circleController = require('./controllers/circle.controller');
 // restful支持
 const router = new Router();
 
+// --------------------User--------------------start
+
 router.get('/xhr/user/detail.json', userControllers.getUserDetail);
 
 router.get('/xhr/user/message.json', userControllers.getUserMessage);
 
 router.get('/xhr/user/circles.json', circleController.getUserAllCircles);
+
+// --------------------User--------------------end
+
+
+// --------------------User--------------------start
+
+router.post('/xhr/circle.json', circleController.createCircle);
+
+// --------------------User--------------------end
+
+
+// --------------------search--------------------start
+
+// router.get('/xhr/search/composite.json') 综合搜索
+router.get('/xhr/search/circle.json', circleController.search);
+
+// --------------------search--------------------end
 
 // router.get('/logout', userControllers.logOut);
 
