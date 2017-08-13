@@ -21,6 +21,36 @@ class Circle {
   }
 
   /**
+   * 根据创建人名字模糊查找圈子
+   * @static
+   * @param {any} name 创建人姓名
+   * @returns Circles
+   * @memberof Circle
+   */
+  static async getCircleByCreatorName(name) {
+    const [circles] = await global.db.query('SELECT c.id, c.name, c.intro, c.logUrl, c.createdAt, u.id as creatorId, u.name as creatorName FROM  circle as c, user as u where c.creator = u.id and u.id in ( SELECT id from user WHERE name LIKE ?)', [`%${name}%%`]);
+    console.log(circles);
+    return circles;
+  }
+
+  /**
+   * 分页查找圈子中的所有用户id
+   * @static
+   * @param {any} circleId 圈子id
+   * @param {any} page 第page页
+   * @param {any} size 每页的大小
+   * @returns 输出的用户
+   * @memberof Circle
+   */
+  static async getCircleMenbers(circleId, page, size) {
+    /**
+      page: 1, size: 10   ->   0 -> 10  (page-1) * size -> page * size
+     */
+    const [users] = await global.db.query('SELECT  * from user where id in (SELECT user from user_circle where circle = ? ) LIMIT ?, ?', [circleId, (page - 1) * size, page * size]);
+    return users;
+  }
+
+  /**
    * 根据圈子的某些field获取圈子对象 and select
    *
    * @static
@@ -142,6 +172,19 @@ class Circle {
         default:
           Lib.logException('Circle.update', e);
           throw new ModelError(500, e.message); // Internal Server Error for uncaught exception
+      }
+    }
+  }
+
+  static async findAllWithCircleName(circleName) {
+    try {
+      const circle = await global.db.query('SELECT c.id, c.name, c.intro, c.logUrl, c.createdAt, u.id as creatorId, u.name as creatorName FROM  circle as c, user as u where c.name LIKE ? and c.creator = u.id;', [`%${circleName}%`]);
+      console.log(circle);
+      return circle;
+    } catch (e) {
+      switch (e.code) {
+        case 'ER_BAD_FIELD_ERROR': throw new ModelError(403, 'Unrecognised circleName');
+        default: Lib.logException('Circle.findAllWithCircleName', e); throw new ModelError(500, e.message);
       }
     }
   }

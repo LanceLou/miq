@@ -26,7 +26,7 @@ const testAdd = () => {
       name: 'lance circle',
       intro: 'bla bla',
       creator: 11,
-      logoUrl: 'https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400',
+      logUrl: 'https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400',
       status: 1,
       createdAt: new Date(),
     });
@@ -55,11 +55,22 @@ const testUpdate = () => {
     Model.update(updateParam.id, updateParam.kv);
   });
 };
+
+const testGetCircleMenbers = () => {
+  it('getCircleMenbers', async () => {
+    await mysqlConnectionInitializeForTest();
+    const result = await Model.getCircleMenbers(7, 1, 10);
+    console.log(result);
+    result.should.be.instanceof(Array).and.have.lengthOf(10);
+  });
+};
+
 const initTest = () => {
   // testAdd();
-  testFindById();
-  testFindByField();
-  testUpdate();
+  // testFindById();
+  // testFindByField();
+  // testUpdate();
+  testGetCircleMenbers();
 };
-// initTest();
+initTest();
 

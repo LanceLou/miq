@@ -34,12 +34,27 @@ const createCircle = async (ctx) => {
   }
 };
 
+const _getCircleMenbers = async (bcircle) => {
+  const localCircle = bcircle;
+  const acircle = await circle.getCircleMenbers(bcircle.id, 1, 10);
+  localCircle.circleMenbers = acircle;
+  return localCircle;
+};
+
 const search = async (ctx) => {
-  console.log(ctx);
-  // try {
-  //   const kw = ctx.request.body.kw;
-  //   circle.getByOr(['', 'circle'], [kw, kw]);
-  // }
+  const kv = ctx.query.keyword;
+  let bCircles = [];
+  try {
+    const circles = await circle.getCircleByCreatorName(kv);
+    circles.concat(await circle.findAllWithCircleName(kv));
+    for (let i = 0; i < circles.length; i += 1) {
+      bCircles.push(_getCircleMenbers(circles[i]));
+    }
+    bCircles = await Promise.all(bCircles);
+    ctx.body = bCircles;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 module.exports = {

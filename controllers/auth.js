@@ -89,7 +89,7 @@ async function createUser(userInfo, type) {
   const user = await userModel.insert({
     name: userInfo.name,
     email: userInfo.email,
-    logoUrl: userInfo.picture || userInfo.avatar_url,
+    logUrl: userInfo.picture || userInfo.avatar_url,
     thirdpartId: type,
     status: 1,
     thirdpartUniq: type === 0 ? userInfo.email : userInfo.html_url,

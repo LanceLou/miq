@@ -23,7 +23,7 @@ class CircleJoin extends React.Component {
     this.setState({
       resultList: [],
     });
-    searchCircle({ kw: this.state.keyword }).then((resultList) => {
+    searchCircle({ keyword: this.state.keyword }).then((resultList) => {
       me.setState({
         resultList,
       });

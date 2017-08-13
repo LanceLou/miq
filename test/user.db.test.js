@@ -8,7 +8,7 @@ const testAddUser = () => {
     await mysqlConnectionInitializeForTest();
     const result = await userModel.insert({ name: 'lance',
       thirdpartId: 0,
-      logoUrl: 'https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400',
+      logUrl: 'https://avatars3.githubusercontent.com/u/15168516?v=3&u=45b22b3ad58b6d2e8b84ee777c34dfcf80759fd2&s=400',
       email: '12353261@gmail.com',
       status: 1 });
     result.should.be.instanceof(Number);

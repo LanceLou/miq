@@ -7,7 +7,7 @@ import { getGlobalUserDetail } from 'Reducers';
 import Style from './index.scss';
 
 const UserAvatorComponent = (props) => {
-  const logoUrl = props.user && props.user.logoUrl;
+  const logUrl = props.user && props.user.logUrl;
   const thirdpartUniq = props.user.thirdpartUniq;
   // 登录处理
   const logOut = () => {
@@ -18,7 +18,7 @@ const UserAvatorComponent = (props) => {
     window.location = '/logout';
   };
   return (<div className={Style['m-userAvator']}>
-    <span className={Style['m-userAvator_icon']} style={logoUrl && { backgroundImage: `url(${logoUrl})` }} />
+    <span className={Style['m-userAvator_icon']} style={logUrl && { backgroundImage: `url(${logUrl})` }} />
     <div className={Style['m-userNavList']}>
       <ul>
         <li><i className="background_center_norepeat" /><Link to="/topics">我的主题</Link></li>
@@ -32,7 +32,7 @@ const UserAvatorComponent = (props) => {
 
 UserAvatorComponent.propTypes = {
   user: PropTypes.shape({
-    logoUrl: PropTypes.string,
+    logUrl: PropTypes.string,
     thirdpartUniq: PropTypes.string,
   }).isRequired,
 };
