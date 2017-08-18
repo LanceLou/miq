@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import Modal from 'Components/modal';
 import { searchCircle } from 'Api/search.api';
+import CircleInfoItem from './circleInfoItem';
 import Style from './index.scss';
 
 const cx = classNames.bind(Style);
@@ -11,6 +13,7 @@ class CircleJoin extends React.Component {
     this.state = {
       resultList: [],
       keyword: '',
+      modalVisible: false,
     };
   }
   handlerSearchKWChange = (ev) => {
@@ -19,6 +22,9 @@ class CircleJoin extends React.Component {
     });
   }
   handlerSearch = () => {
+    if (!this.state.keyword || this.state.keyword.trim().length === 0) {
+      return;
+    }
     const me = this;
     this.setState({
       resultList: [],
@@ -29,7 +35,15 @@ class CircleJoin extends React.Component {
       });
     });
   }
+  handlerCircleItemClick = (circle) => {
+    console.log(circle);
+    this.setState({
+      modalVisible: true,
+    });
+  }
   render() {
+    console.log('main - render');
+    console.log(this.state.modalVisible);
     const circles = this.state.resultList;
     return (<div className={Style.circleJoin}>
       <div className={Style.search}>
@@ -40,24 +54,19 @@ class CircleJoin extends React.Component {
         <ul>
           {
             circles.map(circle => (
-              <li key={circle.id}>
-                <span className={Style.logo} style={{ backgroundImage: `url(${circle.logUrl})` }} />
-                <span className={Style.circleNameIntro}>
-                  <span className="text-oneline_omit">圈子名称: {circle.name}(Created by {circle.creatorName})</span>
-                  <span>圈子Intro: {circle.intro}</span>
-                </span>
-                <span className={Style.circleMenbers}>
-                  {
-                    circle.circleMenbers.map(menber => (
-                      <img src={menber.logUrl} title={menber.name} alt="menber logo" key={menber.id} />
-                    ))
-                  }
-                </span>
-              </li>
+              <CircleInfoItem
+                key={circle.id}
+                circle={circle}
+                handlerCircleItemClick={() => this.handlerCircleItemClick(circle)}
+              />
             ))
           }
         </ul>
       </div>
+      <Modal visible={this.state.modalVisible}>
+        <p>哈哈哈哈哈哈</p>
+        <p>我就是modal的内容哈哈</p>
+      </Modal>
     </div>);
   }
 }
